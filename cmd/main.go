@@ -1,18 +1,20 @@
 package main
 
 import (
+	"parking-simulator/internal/domain"
 	"parking-simulator/internal/ui"
-	"parking-simulator/pkg/simulation"
+	"parking-simulator/internal/simulation"
 )
 
 func main() {
 	capacity := 20
 	vehicleCount := 100
 
-	simulator := simulation.NewSimulator(capacity)
-	simulator.VehicleCount = vehicleCount
+	parkingLot := domain.NewParkingLot(capacity)
+	simulator := simulation.NewSimulator(parkingLot, vehicleCount)
 
 	adapter := ui.NewFyneAdapter()
 	renderer := ui.NewRenderer(adapter, simulator)
+
 	renderer.Adapter.Show()
 }
